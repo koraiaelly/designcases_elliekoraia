@@ -258,6 +258,7 @@ main {
     box-shadow: var(--shadow-subtle);
     padding: 30px; 
     display: flex;
+    min-height: 400px;
     flex-direction: column;
     /* height: 100%; */
 }
@@ -383,4 +384,107 @@ footer {
     .card-content h3 {
         font-size: 1.5rem;
     }
+}
+
+/* --- СТИЛИ ДЛЯ ЭКРАНА БЛОКИРОВКИ (ОБНОВЛЕНО ПОД СТИЛЬ ПОРТФОЛИО) --- */
+#password-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color); /* Используем ваш фон */
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#password-box {
+    background-color: var(--card-bg); /* Используем фон карточек */
+    padding: 50px 40px; /* Увеличил паддинг для большего воздуха */
+    border-radius: 12px;
+    box-shadow: var(--shadow-hover); /* Красивая тень */
+    max-width: 400px; /* Сделал немного шире */
+    width: 90%;
+    border: 1px solid var(--card-border-color); /* Тонкая рамка */
+}
+
+#password-box h2 {
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 2rem; /* Увеличил размер заголовка */
+    color: var(--text-color);
+}
+
+#password-box p {
+    color: var(--link-color); /* Приглушенный текст */
+    margin-bottom: 30px; /* Отступ от описания до поля */
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+#password-input {
+    padding: 15px 20px; /* Увеличил паддинг */
+    border: 1px solid var(--card-border-color); /* Более тонкая и подходящая рамка */
+    border-radius: 8px;
+    font-size: 1.1rem;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    font-family: 'Raleway', sans-serif; /* Ваш шрифт */
+    color: var(--text-color);
+    background-color: #fcfcfc; /* Слегка темнее, чем фон карточки */
+}
+
+#password-input:focus {
+    outline: none;
+    border-color: var(--accent-color); /* Акцент при фокусе */
+    box-shadow: 0 0 0 3px rgba(92, 98, 242, 0.2); /* Легкая тень при фокусе */
+}
+
+#password-submit {
+    background-color: var(--accent-color); /* Акцентный цвет */
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    width: 100%;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+#password-submit:hover {
+    background-color: #4b52e0; /* Более темный акцент при наведении */
+    box-shadow: 0 4px 15px rgba(92, 98, 242, 0.3); /* Тень при наведении */
+}
+
+#password-message {
+    color: #e53935; /* Красный цвет для ошибки */
+    margin-top: 15px;
+    font-size: 0.95rem;
+    height: 20px;
+    font-weight: 500;
+}
+
+/* Responsive для экрана блокировки */
+@media (max-width: 480px) {
+    #password-box {
+        padding: 30px 20px;
+    }
+    #password-box h2 {
+        font-size: 1.6rem;
+    }
+    #password-box p {
+        font-size: 1rem;
+    }
+}
+
+html.access-granted #password-overlay {
+    display: none;
 }

@@ -7,13 +7,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css"> 
+      <!-- 
+        НЕМЕДЛЕННАЯ ПРОВЕРКА ДОСТУПА ДЛЯ УСТРАНЕНИЯ МЕРЦАНИЯ 
+        *** ИСПОЛЬЗУЕТ sessionStorage (доступ только на время текущей сессии) ***
+    -->
+    <script>
+        const ACCESS_KEY_FOUC = 'portfolio_access_granted';
+        if (sessionStorage.getItem(ACCESS_KEY_FOUC) === 'true') {
+            document.documentElement.classList.add('access-granted');
+        }
+    </script>
 </head>
 <body>
+    <!-- 
+    МГНОВЕННАЯ ПРОВЕРКА ДОСТУПА: 
+    Этот inline-скрипт выполняется до загрузки остального JS 
+    и добавляет класс 'access-granted' к body, если пароль уже был введен.
+    Это устраняет "мерцание" оверлея при перезагрузке.
+-->
+<body onload="if(sessionStorage.getItem('portfolio_access_granted') === 'true'){ document.body.classList.add('access-granted'); }">
 
+    <!-- ЭКРАН БЛОКИРОВКИ ПАРОЛЕМ (СВЕРХУ ОСНОВНОГО КОНТЕНТА) -->
+    <div id="password-overlay">
+        <div id="password-box">
+            <h2>Закрытые кейсы</h2>
+            <p>
+                Это закрытая часть портфолио. Введите пароль, чтобы получить доступ к подробным описаниям проектов.
+            </p>
+            <input type="password" id="password-input" placeholder="Введите пароль">
+            <button id="password-submit">Получить доступ</button>
+            <div id="password-message"></div>
+        </div>
+    </div>
+    <!-- КОНЕЦ ЭКРАНА БЛОКИРОВКИ -->
     <header>
         <div class="inner-header"> 
             <div class="header-name">Ellie Koraia</div>
-            
             <div class="nav-group">
                 <div class="nav-links">
                     <a href="mailto:email@example.com">Contact</a>
@@ -198,32 +227,79 @@
         <p>© 2025 Ellie Koraia. All rights reserved.</p>
     </footer>
 
+    <!-- JavaScript для управления доступом и паролем -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const tabs = document.querySelectorAll('.tab-link');
-            const contents = document.querySelectorAll('.content-section');
+            // ----------------------------------------------------
+            // --- ПАРОЛЬНАЯ ЗАЩИТА (JavaScript) ---
+            // ----------------------------------------------------
+            const OVERLAY_ID = 'password-overlay';
+            const PASSWORD_INPUT_ID = 'password-input';
+            const PASSWORD_SUBMIT_ID = 'password-submit';
+            const PASSWORD_MESSAGE_ID = 'password-message';
+            // КЛЮЧ: Возвращен sessionStorage для доступа только на время текущей сессии
+            const ACCESS_KEY = 'portfolio_access_granted';
+            
+            // ВАШ СЕКРЕТНЫЙ ПАРОЛЬ
+            const CORRECT_PASSWORD = '123456'; // <-- ИЗМЕНИТЕ ЭТУ СТРОКУ
 
-            tabs.forEach(tab => {
-                tab.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = tab.dataset.tab;
+            const overlay = document.getElementById(OVERLAY_ID);
+            const input = document.getElementById(PASSWORD_INPUT_ID);
+            const submitButton = document.getElementById(PASSWORD_SUBMIT_ID);
+            const message = document.getElementById(PASSWORD_MESSAGE_ID);
 
-                    // 1. Убираем активный класс со всех табов и добавляем к текущему
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
+            // 1. Функция для предоставления доступа (скрытие оверлея)
+            const grantAccess = () => {
+                // *** ИСПОЛЬЗУЕМ sessionStorage ***
+                sessionStorage.setItem(ACCESS_KEY, 'true'); 
+                if (overlay) {
+                    // Добавляем класс к <html> для мгновенного скрытия оверлея через CSS
+                    document.documentElement.classList.add('access-granted');
+                    
+                    // Запускаем плавное скрытие
+                    overlay.style.opacity = '0';
+                    setTimeout(() => {
+                        overlay.style.display = 'none';
+                    }, 500); // 500ms соответствует CSS transition
+                }
+            };
+            
+            // 2. Функция для проверки пароля и логики
+            const handlePasswordCheck = () => {
+                const enteredPassword = input.value.trim();
+                message.textContent = ''; // Очистка сообщения
 
-                    // 2. Скрываем весь контент и отображаем только целевой
-                    contents.forEach(content => {
-                        if (content.id === targetId) {
-                            content.classList.remove('hidden');
-                        } else {
-                            content.classList.add('hidden');
-                        }
-                    });
+                if (enteredPassword === CORRECT_PASSWORD) {
+                    message.textContent = 'Доступ предоставлен!';
+                    message.style.color = '#4CAF50'; // Зеленый цвет успеха
+                    grantAccess(); // Предоставить доступ сразу
+                } else {
+                    message.textContent = 'Неверный пароль. Попробуйте снова.';
+                    message.style.color = '#e53935'; // Красный цвет ошибки
+                    input.value = ''; // Очистка поля
+                }
+            };
+            
+            // 3. Назначаем слушателей событий
+            if (submitButton) {
+                submitButton.addEventListener('click', handlePasswordCheck);
+            }
+            if (input) {
+                // Обработка нажатия Enter в поле ввода
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault(); 
+                        handlePasswordCheck();
+                    }
                 });
-            });
+            }
+
+            // Дополнительный сброс, если JS загрузился, но класс не был применен (для первой загрузки)
+            if (sessionStorage.getItem(ACCESS_KEY) === 'true' && !document.documentElement.classList.contains('access-granted')) {
+                // Это должно было сработать через inline-скрипт, но на всякий случай
+                document.documentElement.classList.add('access-granted');
+            }
         });
     </script>
-
 </body>
 </html>
