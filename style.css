@@ -1,0 +1,386 @@
+/* ---------------------------------- */
+/* --- 1. CSS Variables & Reset --- */
+/* ---------------------------------- */
+
+html {
+    scroll-behavior: smooth; 
+}
+
+/* CSS Variables */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --link-color: #555555;
+    
+    --accent-color: #5C62F2; 
+
+    --chip-text-color: #555555; 
+    --chip-bg: rgba(0, 0, 0, 0.05); 
+    
+    --card-bg: #ffffff; 
+    --card-text-color: #1a1a1a; 
+    --card-border-color: #eeeeee; 
+    
+    --header-bg: #ffffff;
+    --max-width: 840px; 
+    --shadow-subtle: 0 4px 15px rgba(40, 85, 150, 0.10); /* ОБНОВЛЕННЫЕ ТЕНИ */
+    --shadow-hover: 0 6px 15px rgba(40, 85, 150, 0.12); /* ОБНОВЛЕННЫЕ ТЕНИ */
+    
+    --footer-separator-color: #e0e0e0; 
+}
+
+body {
+    font-family: 'Raleway', sans-serif; 
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 70px; 
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: var(--text-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+}
+
+/* ---------------------------------- */
+/* --- 2. Header/Navigation Styles --- */
+/* ---------------------------------- */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: var(--header-bg);
+    box-shadow: var(--shadow-subtle); 
+    margin: 0; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid var(--footer-separator-color); 
+}
+
+.inner-header {
+    max-width: var(--max-width); 
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px; 
+}
+
+.header-name {
+    font-size: 1.5rem;
+    font-weight: 600; 
+    color: var(--text-color);
+    margin-right: auto; 
+}
+
+.nav-group {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+    font-size: 0.95rem;
+    font-weight: 500; 
+}
+
+/* ---------------------------------- */
+/* --- 3. Main Content Layout & Tabs --- */
+/* ---------------------------------- */
+main {
+    flex-grow: 1;
+    max-width: var(--max-width); 
+    margin: 0 auto;
+    padding: 40px 20px;
+    width: 100%;
+}
+
+.tabs-navigation {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px; 
+    border-bottom: 1px solid var(--footer-separator-color); 
+    position: relative; 
+}
+
+.tab-link {
+    color: var(--link-color); 
+    font-size: 1.8rem; 
+    font-weight: 500; 
+    padding: 0 0 10px 0; 
+    position: relative;
+    transition: color 0.3s, font-weight 0.3s; 
+    display: block; 
+}
+
+.tab-link:hover {
+    color: var(--text-color);
+}
+
+.tab-link.active {
+    color: var(--text-color); 
+    font-weight: 500; 
+    border-bottom: 2px solid var(--text-color); 
+    margin-bottom: -1px; 
+}
+
+/* --- Главное изменение для мгновенного перехода (БЕЗ ПЛАВНОСТИ) --- */
+.content-section {
+    /* УДАЛЕНО: opacity, max-height, transition, overflow */
+    min-height: 1px;
+    padding: 0; 
+}
+
+.content-section.hidden {
+    display: none; /* Мгновенное скрытие: тени будут видны, но плавность пропадет */
+    pointer-events: none; 
+    margin: 0; 
+}
+
+/* ---------------------------------- */
+/* --- 4. Case Study Grid Styles --- */
+/* ---------------------------------- */
+.case-study-grid {
+    display: flex;
+    flex-direction: column; 
+    gap: 40px; 
+}
+
+/* УДАЛЕНО: margin для компенсации обрезки теней, так как overflow: hidden больше не используется */
+
+/* Case Study Card Styling */
+.case-study-card {
+    background-color: var(--card-bg); 
+    border-radius: 12px; 
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--card-border-color); 
+    box-shadow: var(--shadow-subtle);
+    transition: box-shadow 0.3s, border-color 0.3s;
+    width: 100%; 
+}
+
+.case-study-card:hover {
+    box-shadow: var(--shadow-hover); 
+    border-color: var(--card-border-color); 
+}
+
+.card-image-placeholder {
+    width: 100%;
+    height: 300px; 
+    background: linear-gradient(135deg, #f0f0f0, #ffffff); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: var(--link-color);
+    font-weight: 500; 
+}
+
+.card-content {
+    padding: 30px; 
+}
+
+.card-content h3 {
+    font-size: 1.8rem; 
+    margin: 0 0 15px;
+    color: var(--card-text-color); 
+    font-weight: 600; 
+}
+
+.card-content p {
+    margin: 0;
+    color: var(--link-color);
+    font-size: 1.1rem; 
+}
+
+/* --- Стили для чипов (теги) --- */
+.tags {
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 10px; 
+    margin-top: 20px; 
+}
+
+.tag-chip {
+    padding: 6px 14px; 
+    border: none; 
+    color: var(--chip-text-color);
+    background-color: var(--chip-bg); 
+    border-radius: 12px; 
+    font-size: 0.85rem; 
+    font-weight: 500; 
+    white-space: nowrap; 
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+.tag-chip:hover {
+    background-color: var(--chip-text-color); 
+    color: var(--bg-color); 
+}
+
+/* ---------------------------------- */
+/* --- 5. Testimonials Styles --- */
+/* ---------------------------------- */
+.testimonial-list {
+    display: grid;
+    /* 2 колонки для десктопов */
+    grid-template-columns: 1fr 1fr; 
+    gap: 40px; 
+}
+
+/* УДАЛЕНО: margin для компенсации обрезки теней, так как overflow: hidden больше не используется */
+
+.testimonial-card {
+    background-color: var(--card-bg); 
+    border-radius: 12px;
+    border: 1px solid var(--card-border-color); 
+    box-shadow: var(--shadow-subtle);
+    padding: 30px; 
+    display: flex;
+    flex-direction: column;
+    /* height: 100%; */
+}
+
+.quote-container {
+    /* Добавляем флексбокс, чтобы иконка и текст выровнялись по одной линии */
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    /* Если у вас в HTML иконка и p.quote-text находятся рядом, как в последнем примере */
+}
+
+.quote-icon {
+    /* Кавычка примерно 16x16px (1rem) */
+    font-size: 3rem; 
+    line-height: 1; 
+    font-weight: 700;
+    color: var(--accent-color);
+    display: inline-block; /* Позволяет иконке быть частью потока, если нужно */
+    /* Убираем большой вертикальный отступ и добавляем небольшой отступ снизу */
+    margin-right: 5px; /* Небольшой отступ справа для разделения с текстом */
+    opacity: 0.8;
+}
+
+.quote {
+    font-size: 1rem; 
+    line-height: 1.6;
+    color: var(--text-color);
+    margin: 0;
+    position: relative;
+    top: 20px; 
+}
+
+.author-info {
+    padding-top: 15px; 
+    border-top: 1px solid var(--footer-separator-color);
+    margin-bottom: 25px;
+}
+
+.author {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin: 0;
+    color: var(--text-color);
+}
+
+.author-role {
+    font-size: 0.95rem;
+    color: var(--link-color);
+    margin: 5px 0 0;
+}
+
+.testimonial-detail-group {
+    border-top: 1px solid var(--footer-separator-color);
+    padding-top: 20px;
+}
+
+.detail-item {
+    margin-bottom: 15px;
+}
+
+.detail-item strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    margin-bottom: 5px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.detail-item p {
+    font-size: 0.95rem;
+    color: var(--link-color);
+    margin: 0;
+}
+
+/* ---------------------------------- */
+/* --- 6. Footer & Responsive --- */
+/* ---------------------------------- */
+footer {
+    max-width: var(--max-width);
+    width: 100%;
+    margin: 40px auto 20px;
+    padding: 20px;
+    border-top: 1px solid var(--footer-separator-color); 
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--link-color);
+}
+
+@media (max-width: 900px) {
+    .testimonial-list {
+        /* На планшетах и мобильных - 1 колонка */
+        grid-template-columns: 1fr; 
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    
+    .inner-header {
+        padding: 15px 20px; 
+    }
+
+    .nav-links {
+        display: none !important; 
+    }
+    
+    .tab-link {
+        font-size: 1.4rem;
+    }
+
+    main {
+         padding: 30px 15px; 
+    }
+    
+    .card-image-placeholder {
+        height: 200px; 
+    }
+    
+    .card-content h3 {
+        font-size: 1.5rem;
+    }
+}
