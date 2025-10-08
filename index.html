@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Designer Portfolio - Ellie Koraia</title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="style.css"> 
+        <link rel="stylesheet" href="style.css"> 
+        <script src="https://cdn.tailwindcss.com"></script>
       <!-- 
         НЕМЕДЛЕННАЯ ПРОВЕРКА ДОСТУПА ДЛЯ УСТРАНЕНИЯ МЕРЦАНИЯ 
         *** ИСПОЛЬЗУЕТ sessionStorage (доступ только на время текущей сессии) ***
@@ -30,19 +30,19 @@
     <!-- ЭКРАН БЛОКИРОВКИ ПАРОЛЕМ (СВЕРХУ ОСНОВНОГО КОНТЕНТА) -->
     <div id="password-overlay">
         <div id="password-box">
-            <h2>Закрытые кейсы</h2>
+            <h2>Portfolio Access</h2>
             <p>
-                Это закрытая часть портфолио. Введите пароль, чтобы получить доступ к подробным описаниям проектов.
+                Please enter the password to view this portfolio
             </p>
             <input type="password" id="password-input" placeholder="Введите пароль">
-            <button id="password-submit">Получить доступ</button>
+            <button id="password-submit">Get access</button>
             <div id="password-message"></div>
         </div>
     </div>
     <!-- КОНЕЦ ЭКРАНА БЛОКИРОВКИ -->
     <header>
         <div class="inner-header"> 
-            <div class="header-name">Ellie Koraia</div>
+            <a href="index.html">Ellie Koraia</a>
             <div class="nav-group">
                 <div class="nav-links">
                     <a href="mailto:email@example.com">Contact</a>
@@ -54,11 +54,10 @@
     </header>
 
     <main>
-        <div class="tabs-navigation">
+        <!-- <div class="tabs-navigation">
             <a href="#" class="tab-link active" data-tab="case-studies">Case Studies</a>
             <a href="#" class="tab-link" data-tab="testimonials">Testimonials</a>
-        </div>
-
+        </div> -->
         <div id="case-studies" class="content-section" data-content>
             <div class="case-study-grid">
 
@@ -241,7 +240,7 @@
             const ACCESS_KEY = 'portfolio_access_granted';
             
             // ВАШ СЕКРЕТНЫЙ ПАРОЛЬ
-            const CORRECT_PASSWORD = '123456'; // <-- ИЗМЕНИТЕ ЭТУ СТРОКУ
+            const CORRECT_PASSWORD = 'portfolio777'; // <-- ИЗМЕНИТЕ ЭТУ СТРОКУ
 
             const overlay = document.getElementById(OVERLAY_ID);
             const input = document.getElementById(PASSWORD_INPUT_ID);

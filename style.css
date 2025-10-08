@@ -12,7 +12,7 @@ html {
     --text-color: #1a1a1a;
     --link-color: #555555;
     
-    --accent-color: #5C62F2; 
+    --accent-color: #000000; 
 
     --chip-text-color: #555555; 
     --chip-bg: rgba(0, 0, 0, 0.05); 
@@ -115,7 +115,7 @@ main {
     width: 100%;
 }
 
-.tabs-navigation {
+/* .tabs-navigation {
     display: flex;
     gap: 30px;
     margin-bottom: 40px; 
@@ -142,7 +142,7 @@ main {
     font-weight: 500; 
     border-bottom: 2px solid var(--text-color); 
     margin-bottom: -1px; 
-}
+} */
 
 /* --- Главное изменение для мгновенного перехода (БЕЗ ПЛАВНОСТИ) --- */
 .content-section {
